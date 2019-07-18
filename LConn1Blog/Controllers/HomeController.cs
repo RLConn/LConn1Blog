@@ -35,18 +35,37 @@ namespace LConn1Blog.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Contact(EmailModel email)
         {
-            var from = $"{email.FromEmail}<{WebConfigurationManager.AppSettings["emailto"]}>";
-            var emailMessage = new MailMessage(from, WebConfigurationManager.AppSettings["emailto"])
+            if (ModelState.IsValid)
             {
-                Subject = email.Subject,
-                Body = email.Body,
-                IsBodyHtml = true
-            };
+                try
+                {
+                    var from = $"{email.FromEmail}<{WebConfigurationManager.AppSettings["emailfrom"]}>";
+                    var emailMessage = new MailMessage(from, WebConfigurationManager.AppSettings["emailto"])
+                    {
+                        Subject = email.Subject,
+                        Body = email.Body,
+                        IsBodyHtml = true
+                    };
+                    var svc = new PersonalEmail();
+                    await svc.SendAsync(emailMessage);
 
-            var svc = new PersonalEmail();
-            await svc.SendAsync(emailMessage);
+                    //return View(new EmailModel());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    await Task.FromResult(0);
+                }
+            }
 
-            return RedirectToAction("Index");
-        }
+            return View();
+            }
+
+           
+
+  
+
+            
+        
     }
 }

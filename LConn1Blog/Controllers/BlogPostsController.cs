@@ -65,7 +65,7 @@ namespace LConn1Blog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
+        public ActionResult Create([Bind(Include = "Id,Title,Abstract,Slug,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
@@ -117,20 +117,20 @@ namespace LConn1Blog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Abstract,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "Id,Title,Abstract,Slug,Created,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 if (ImageUploadValidator.IsWebFriendlyImage(image))
                 {
                     var fileName = Path.GetFileName(image.FileName);
                     image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
                     blogPost.MediaURL = "/Uploads/" + fileName;
-                }
+                }
                 db.Entry(blogPost).State = EntityState.Modified;
+                blogPost.Updated = DateTimeOffset.Now;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-
             }
             return View(blogPost);
         }

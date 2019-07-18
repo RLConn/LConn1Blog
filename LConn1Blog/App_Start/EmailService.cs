@@ -30,6 +30,7 @@ namespace LConnBlog
                 {
                     await smtp.SendMailAsync(message);
                 }
+
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
