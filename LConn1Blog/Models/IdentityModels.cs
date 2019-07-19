@@ -21,6 +21,7 @@ namespace LConn1Blog.Models
         public ApplicationUser()
         {
             BlogComments = new HashSet<Comment>();
+            BlogPosts = new HashSet<BlogPost>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

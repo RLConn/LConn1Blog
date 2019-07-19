@@ -21,7 +21,7 @@ namespace LConn1Blog.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(db.BlogPosts.Where(b =>b.Published).ToList());
+            return View(db.BlogPosts.OrderByDescending(p =>p.Created).FirstOrDefault());
         }
 
         // GET: BlogPosts/Details/5
@@ -126,7 +126,8 @@ namespace LConn1Blog.Controllers
                     var fileName = Path.GetFileName(image.FileName);
                     image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
                     blogPost.MediaURL = "/Uploads/" + fileName;
-                }
+                }
+
                 db.Entry(blogPost).State = EntityState.Modified;
                 blogPost.Updated = DateTimeOffset.Now;
                 db.SaveChanges();

@@ -2,6 +2,7 @@
 using LConnBlog;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -27,45 +28,26 @@ namespace LConn1Blog.Controllers
 
         public ActionResult Contact()
         {
-            EmailModel model = new EmailModel();
-            return View(model);
+            ViewBag.Message = "Your contact page.";
+            return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Contact(EmailModel email)
         {
-            if (ModelState.IsValid)
+            var from = $"{email.FromEmail}<{WebConfigurationManager.AppSettings["emailfrom"]}>";
+            var myEmail = new MailMessage(from, ConfigurationManager.AppSettings["emailto"])
             {
-                try
-                {
-                    var from = $"{email.FromEmail}<{WebConfigurationManager.AppSettings["emailfrom"]}>";
-                    var emailMessage = new MailMessage(from, WebConfigurationManager.AppSettings["emailto"])
-                    {
-                        Subject = email.Subject,
-                        Body = email.Body,
-                        IsBodyHtml = true
-                    };
-                    var svc = new PersonalEmail();
-                    await svc.SendAsync(emailMessage);
+                Subject = email.Subject,
+                Body = email.Body,
+                IsBodyHtml = true
+            };
 
-                    //return View(new EmailModel());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    await Task.FromResult(0);
-                }
-            }
+            var svc = new PersonalEmail();
+            await svc.SendAsync(myEmail);
 
-            return View();
-            }
-
-           
-
-  
-
-            
+            return RedirectToAction("Home", "Index");
+        }                           
         
     }
 }
