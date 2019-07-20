@@ -15,7 +15,7 @@ namespace LConn1Blog
 
             routes.MapRoute(
                 name: "NewSlug",
-                url: "Blog/Details/{slug}",
+                url: "Blog/{slug}",
                 defaults: new { controller = "BlogPosts", action = "Details", slug = UrlParameter.Optional }
             );
 

@@ -21,7 +21,10 @@ namespace LConn1Blog.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(db.BlogPosts.OrderByDescending(p =>p.Created).FirstOrDefault());
+            //db.BlogPosts.ToList()
+            //db.BlogPosts.Where(b => b.Published).ToList()
+            var publishedPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
+            return View(publishedPosts);
         }
 
         // GET: BlogPosts/Details/5
@@ -38,7 +41,7 @@ namespace LConn1Blog.Controllers
         //    }
         //    return View(blogPost);
         //}
-
+        [AllowAnonymous]
         public ActionResult Details(string slug)
         {
             if (String.IsNullOrWhiteSpace(slug))
@@ -70,6 +73,7 @@ namespace LConn1Blog.Controllers
             if (ModelState.IsValid)
             {
                 var slug = StringUtilities.URLFriendly(blogPost.Title);
+
                 if (String.IsNullOrWhiteSpace(slug))
                 {
                     ModelState.AddModelError("Title", "Invalid title");
