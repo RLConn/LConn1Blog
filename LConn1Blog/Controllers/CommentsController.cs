@@ -58,7 +58,7 @@ namespace LConn1Blog.Controllers
                 comment.AuthorId = User.Identity.GetUserId();
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Details","BlogPost", new { slug = slug });
+                return RedirectToAction("Details","BlogPosts", new { slug = slug });
             }
 
             //ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);

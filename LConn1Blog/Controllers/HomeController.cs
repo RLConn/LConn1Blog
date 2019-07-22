@@ -29,25 +29,41 @@ namespace LConn1Blog.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-            return View();
+            EmailModel model = new EmailModel();
+            return View(model);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Contact(EmailModel email)
         {
-            var from = $"{email.FromEmail}<{WebConfigurationManager.AppSettings["emailfrom"]}>";
-            var myEmail = new MailMessage(from, ConfigurationManager.AppSettings["emailto"])
+            if (ModelState.IsValid)
             {
-                Subject = email.Subject,
-                Body = email.Body,
-                IsBodyHtml = true
-            };
+                try
+                {
+                    var from = $"{email.FromEmail}<{WebConfigurationManager.AppSettings["emailfrom"]}>";
+                    var myEmail = new MailMessage(from, ConfigurationManager.AppSettings["emailto"])
+                    {
+                        Subject = email.Subject,
+                        Body = email.Body,
+                        IsBodyHtml = true
+                    };
+                    var svc = new PersonalEmail();
+                    await svc.SendAsync(myEmail);
 
-            var svc = new PersonalEmail();
-            await svc.SendAsync(myEmail);
+                    return View(new EmailModel());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    await Task.FromResult(0);
+                }
+            }
+            return RedirectToAction("Index","Home");
 
-            return RedirectToAction("Home", "Index");
+
+
+            //return View(model);
         }                           
         
     }

@@ -225,8 +225,12 @@
     <Content Include="Images\contact-bg.jpg" />
     <Content Include="Images\favicon.png" />
     <Content Include="Images\home-bg.jpg" />
+    <Content Include="Images\Login1.jpg" />
+    <Content Include="Images\Login2.png" />
     <Content Include="Images\post-bg.jpg" />
     <Content Include="Images\post-sample-image.jpg" />
+    <Content Include="Images\Register.jpg" />
+    <Content Include="Images\Register2.jpg" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />

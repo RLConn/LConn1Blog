@@ -84,6 +84,7 @@ namespace LConn1Blog.Controllers
                     ModelState.AddModelError("Title", "The title must be unique");
                     return View(blogPost);
                 }
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
                 {
                     var fileName = Path.GetFileName(image.FileName);
                     image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
@@ -93,7 +94,7 @@ namespace LConn1Blog.Controllers
                 blogPost.Created = DateTimeOffset.Now;
                 db.BlogPosts.Add(blogPost);
                 db.SaveChanges();
-                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                
                 
                 return RedirectToAction("Index");
             }

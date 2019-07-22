@@ -2,47 +2,55 @@
 @model LConn1Blog.Models.BlogPost
 
 <style>
-    #COmmentBody{
+    #CommentBody{
         height: 100px;
-        width: 100px;
+        width: 100%;
         border: 3px solid black;
     }
 
     .buttonW {
         width: 100%;
     }
+
     #custLogin{
         color: blue;
         font-weight: bold;
     }
+
+    .Ccounter{
+        color: darkblue;
+        font-weight: bold;
+        font-family: 'Font Awesome 5 Brands';
+    }
+
 </style>
     <!-- Page Header -->
 @if(Model.MediaURL == null)
 {
-    @:<header class="masthead">
+    @:<header class="masthead" style="background-image: url(/Images/about-bg.jpg)">
 }
 else
 {
     @:<header class="masthead" style="background-image: url('@Url.Content(Model.MediaURL)')">
-}
+    }
 
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="post-heading">
-                    <h1>@Model.Title</h1>
-                    <h2 class="subheading">@Model.Abstract</h2>
-                    <span class="meta">
-                        Posted by Lee Connelly on @Model.Created.ToString("dddd, MMMM d, yyyy")
-                    </span>
-                </div>
+<div class="overlay"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+                <h1>@Model.Title</h1>
+                <h2 class="subheading">@Model.Abstract</h2>
+                <span class="meta">
+                    Posted by Lee Connelly on @Model.Created.ToString("dddd, MMMM d, yyyy")
+                </span>
             </div>
         </div>
     </div>
-    </header>
+</div>
+</header>
 
-    <!-- Post Content -->
+<!-- Post Content -->
 <article>
     <div class="container">
         <div class="row">
@@ -56,8 +64,8 @@ else
 <hr />
 
 <div class="row">
-    <div class="col-md-12 text-center" h3>
-        Comments: (@Model.Comments.Count()comments)
+    <div class="col-md-12 text-center Ccounter" h3>
+        COMMENTS: (@Model.Comments.Count() comments)
     </div>
 </div>
 
@@ -65,17 +73,17 @@ else
 {
     <div class="row">
         <div class="col-md-12 text-center h3">
-            @Html.ActionLink("Please login to comment","Login","Account",null,new { id = "custLogin" })
+            @Html.ActionLink("Please login to comment", "Login", "Account", null, new { id = "custLogin" })
         </div>
     </div>
 }
 
 @if (User.Identity.IsAuthenticated)
 {
-    using(Html.BeginForm("Create","Comments", FormMethod.Post))
+    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        @Html.Hidden("BlogPostId",Model.Id)
+        @Html.Hidden("BlogPostId", Model.Id)
         @Html.HiddenFor(model => model.Slug)
         <section>
             <div class="row">
@@ -85,17 +93,33 @@ else
             </div>
             <div class="row">
                 <div class="offset-md-3 col-md-6">
-                    <button type="submit" class="btn btn-primary buttonW">Add Comment</button>
+                    <button type="submit" class="btn btn-success buttonW">Add Comment</button>
                 </div>
             </div>
         </section>
     }
 }
 
-<br/>
-@foreach(var comment in Model.Comments.OrderByDescending(c=>c.Created))
+<br />
+@foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
 {
-    <div class="card">
+    <div class="card bg-secondary text-white">
+        <div class="card-body">
+            <h4>@comment.Author.Email</h4><h5>@comment.Created.ToString("MM/dd/yy")</h5>
+            <p class="card-text">@comment.CommentBody</p>
+
+            @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (comment.AuthorId == User.Identity.GetUserId() && comment.UpdateReason == null))
+            {
+                @Html.ActionLink("Edit","Edit","Comments", new { id = comment.Id }, new{ @class = "btn btn-sm btn-danger" })
+            }
+        </div>
+    </div>
+    <br>
+}
+
+
+
+@*<div class="card">
         <div class="card-body">
             <h4 class="card-title">@comment.Author.Email</h4>
             <h5>@comment.Created.ToString("MM/dd/yy")</h5>
@@ -103,10 +127,8 @@ else
 
             @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (comment.AuthorId == User.Identity.GetUserId() && comment.UpdateReason == null))
             {
-                @*<a href="#" class="card-link">Edit</a>*@
                 @Html.ActionLink("Edit","Edit","Comments",new { id = comment.Id },new { @class = "btn btn-sm btn-danger" })
             }
 
         </div>
-    </div>
-}
+    </div>*@
