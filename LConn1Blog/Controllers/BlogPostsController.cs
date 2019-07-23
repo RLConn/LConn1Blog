@@ -10,8 +10,11 @@ using System.Web.Mvc;
 using LConn1Blog.Helpers;
 using LConn1Blog.Models;
 
+
+
 namespace LConn1Blog.Controllers
 {
+    [RequireHttps]
     [Authorize(Roles = "Admin")]
     public class BlogPostsController : Controller
     {

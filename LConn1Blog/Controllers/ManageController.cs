@@ -10,6 +10,7 @@ using LConn1Blog.Models;
 
 namespace LConn1Blog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

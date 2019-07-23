@@ -9,16 +9,48 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
+
 
 namespace LConn1Blog.Controllers
 {
+    [RequireHttps]
+    [Authorize(Roles="Admin")]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        public ActionResult Index()
+
+        [AllowAnonymous]
+        public ActionResult Index(int? page, string searchStr)
         {
-            return View(db.BlogPosts.Where(b => b.Published).ToList());
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
+
+            var pageSize = 5;
+            var pageNumber = page ?? 1;
+
+            return View(blogList.ToPagedList(pageNumber, pageSize));
         }
+
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            var result = db.BlogPosts.Where(b => b.Published);
+            if (searchStr != null)
+            {
+                result = result.Where(p => p.Title.Contains(searchStr) ||
+                    p.Body.Contains(searchStr) ||
+                    p.Comments.Any(c => c.CommentBody.Contains(searchStr) ||
+                                    c.Author.FirstName.Contains(searchStr) ||
+                                    c.Author.LastName.Contains(searchStr) ||
+                                    c.Author.DisplayName.Contains(searchStr) ||
+                                    c.Author.Email.Contains(searchStr)));
+            }
+
+            return result.OrderByDescending(p => p.Created);
+        }
+
+
 
         public ActionResult About()
         {

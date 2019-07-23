@@ -58,11 +58,11 @@ namespace LConn1Blog
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "781143199294-bjh3qm96m7kf45pk6ijt7v4fq4sk9kac.apps.googleusercontent.com",
+                ClientSecret = "akBxM1GJ5YLhLhWZ9r7e3gtW"
+            });
         }
     }
 }

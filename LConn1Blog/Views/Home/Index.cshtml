@@ -1,4 +1,10 @@
-﻿@model IEnumerable<LConn1Blog.Models.BlogPost>
+﻿@using PagedList
+@using PagedList.Mvc
+@using LConn1Blog.Models
+
+@model IPagedList<BlogPost>
+
+
 
 
 <!-- Page Header -->
@@ -15,6 +21,16 @@
         </div>
     </div>
 </header>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+{
+    <div class="controls controls-row search-row">
+        <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search" />
+        <button id="searchStr" name="searchStr" class="btn btn-success" type="submit">
+            <i class="icon-search"></i>
+        </button>
+    </div>
+}
 
 <!-- Main Content -->
 <div class="container">
@@ -48,5 +64,6 @@
     </div>
 </div>
 
-<hr>
+Page @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }));
 
