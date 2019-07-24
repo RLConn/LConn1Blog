@@ -50,13 +50,13 @@ namespace LConn1Blog
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "NN9KasWbWv6VDov0ZyHahopwK",
+               consumerSecret: "VnALUSIQTKhI2aOUXMB7AVTPAk2OUL7LAXRbmK9ewb7GS3XxSt");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "646711592477225",
+               appSecret: "04a8c279271c34a7c53c00c8748ebdc3");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
