@@ -9,8 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using LConn1Blog.Helpers;
 using LConn1Blog.Models;
-
-
+using LConn1Blog.ViewModels;
 
 namespace LConn1Blog.Controllers
 {
@@ -28,6 +27,27 @@ namespace LConn1Blog.Controllers
             //db.BlogPosts.Where(b => b.Published).ToList()
             var publishedPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
             return View(publishedPosts);
+        }
+
+        public ActionResult AdvancedIndex()
+        {
+            var recentSixPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).Take(6);
+
+            //var myData = new IndexVM();
+            //myData.FeaturedPost = recentSixPosts.FirstOrDefault();
+            //myData.RecentPosts = recentSixPosts.Skip(1).ToList();
+            //myData.RecentComments = db.Comments.OrderByDescending(c => c.Created).Take(5).ToList();
+            //myData.NewUsers = db.Users.OrderByDescending(u => u.Created).Take(5).ToList();
+
+            var myData = new IndexVM
+            {
+                FeaturedPost = recentSixPosts.FirstOrDefault(),
+                RecentPosts = recentSixPosts.Skip(1).ToList(),
+                RecentComments = db.Comments.OrderByDescending(c => c.Created).Take(5).ToList(),
+                NewUsers = db.Users.OrderByDescending(u => u.Created).Take(5).ToList()
+            };
+
+            return View(myData);
         }
 
         // GET: BlogPosts/Details/5

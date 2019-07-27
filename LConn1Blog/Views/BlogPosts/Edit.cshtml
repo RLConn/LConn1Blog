@@ -1,9 +1,5 @@
 ﻿@model LConn1Blog.Models.BlogPost
 
-@{
-    ViewBag.Title = "Edit";
-}
-
 <h2>Edit</h2>
 
 @using (Html.BeginForm("Edit", "BlogPosts", FormMethod.Post, new { enctype = "Multipart/form-data" }))
@@ -73,14 +69,3 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section scripts{
-    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
-    <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
-    <script type="text/javascript">
-            $(function () {
-                tinymce.init({
-                    selector: '#Body'
-                });
-            });
-    </script>
-}

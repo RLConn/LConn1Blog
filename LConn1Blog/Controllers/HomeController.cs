@@ -25,20 +25,21 @@ namespace LConn1Blog.Controllers
         public ActionResult Index(int? page, string searchStr)
         {
             ViewBag.Search = searchStr;
-            var blogList = IndexSearch(searchStr);
+            var myPost = IndexSearch(searchStr);
 
             var pageSize = 5;
             var pageNumber = page ?? 1;
 
-            return View(blogList.ToPagedList(pageNumber, pageSize));
+            return View(myPost.ToPagedList(pageNumber, pageSize));
         }
 
         public IQueryable<BlogPost> IndexSearch(string searchStr)
         {
-            var result = db.BlogPosts.Where(b => b.Published);
+            var result = db.BlogPosts.Where(b=>b.Published);
             if (searchStr != null)
             {
                 result = result.Where(p => p.Title.Contains(searchStr) ||
+                    p.Abstract.Contains(searchStr) ||
                     p.Body.Contains(searchStr) ||
                     p.Comments.Any(c => c.CommentBody.Contains(searchStr) ||
                                     c.Author.FirstName.Contains(searchStr) ||
@@ -46,7 +47,6 @@ namespace LConn1Blog.Controllers
                                     c.Author.DisplayName.Contains(searchStr) ||
                                     c.Author.Email.Contains(searchStr)));
             }
-
             return result.OrderByDescending(p => p.Created);
         }
 

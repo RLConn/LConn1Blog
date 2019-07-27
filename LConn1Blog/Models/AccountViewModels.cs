@@ -79,6 +79,9 @@ namespace LConn1Blog.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public string FirstName { get; internal set; }
+        public string LastName { get; internal set; }
+        public string DisplayName { get; internal set; }
     }
 
     public class ResetPasswordViewModel

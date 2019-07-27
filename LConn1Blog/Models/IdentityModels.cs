@@ -14,14 +14,12 @@ namespace LConn1Blog.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string DisplayName { get; set; }
-
-        public virtual ICollection<BlogPost> BlogPosts { get; set; }
+        public DateTime Created { get; set; }
         public virtual ICollection<Comment> BlogComments { get; set; }
 
         public ApplicationUser()
         {
             BlogComments = new HashSet<Comment>();
-            BlogPosts = new HashSet<BlogPost>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

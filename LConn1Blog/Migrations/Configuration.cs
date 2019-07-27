@@ -45,22 +45,31 @@ namespace LConn1Blog.Migrations
             #endregion
 
             #region Users
-            if (!context.Users.Any(roles => roles.UserName == "admin@myblog.com"))
+            if (!context.Users.Any(roles => roles.UserName == "LConnelly@Mailinator.com"))
             {
                 ApplicationUser adminUser = new ApplicationUser()
                 {
-                    UserName = "admin@myblog.com",
-                    Email = "admin@myblog.com"
+                    UserName = "LConnelly@Mailinator.com",
+                    Email = "LConnelly@Mailinator.com",
+                    FirstName = "Lee",
+                    LastName = "Connelly",
+                    DisplayName = "LConn",
+                    Created = DateTime.Now
                 };
 
                 userManager.Create(adminUser, "P@ssw0rd");
             }
-            if (!context.Users.Any(roles => roles.UserName == "moderator@myblog.com"))
+
+            if (!context.Users.Any(roles => roles.UserName == "Moderator@Mailinator.com"))
             {
                 ApplicationUser moderUser = new ApplicationUser()
                 {
-                    UserName = "moderator@myblog.com",
-                    Email = "moderator@myblog.com"
+                    UserName = "Moderator@Mailinator.com",
+                    Email = "Moderator@Mailinator.com",
+                    FirstName = "CF",
+                    LastName = "Moderator",
+                    DisplayName = "Moderator",
+                    Created = DateTime.Now
                 };
 
                 userManager.Create(moderUser, "P@ssw0rd");
@@ -68,12 +77,12 @@ namespace LConn1Blog.Migrations
             #endregion
 
             #region AssignToRoles
-            var adminU = userManager.FindByEmail("admin@myblog.com");
+            var adminU = userManager.FindByEmail("LConnelly@Mailinator.com");
             if (adminU != null)
             {
                 userManager.AddToRole(adminU.Id, "Admin");
             }
-            var moderU = userManager.FindByEmail("moderator@myblog.com");
+            var moderU = userManager.FindByEmail("Moderator@Mailinator.com");
             if (moderU != null)
             {
                 userManager.AddToRole(moderU.Id, "Moderator");
