@@ -9,7 +9,7 @@ namespace LConnBlog
 {
     public class PersonalEmail
     {
-        public async Task SendAsync(MailMessage message)
+        public async Task<(string, string)> SendAsync(MailMessage message)
         {
             var GmailUsername = WebConfigurationManager.AppSettings["username"];
             var GmailPassword = WebConfigurationManager.AppSettings["password"];
@@ -37,6 +37,7 @@ namespace LConnBlog
                     await Task.FromResult(0);
                 }
             };
+            return ("Index", "Home");
         }
 
     }

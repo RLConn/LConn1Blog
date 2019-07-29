@@ -51,7 +51,7 @@ namespace LConn1Blog.Controllers
         }
 
 
-
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -59,6 +59,7 @@ namespace LConn1Blog.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             EmailModel model = new EmailModel();
@@ -66,6 +67,7 @@ namespace LConn1Blog.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Contact(EmailModel email)
         {
@@ -92,8 +94,6 @@ namespace LConn1Blog.Controllers
                 }
             }
             return RedirectToAction("Index","Home");
-
-
 
             //return View(model);
         }                           

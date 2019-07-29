@@ -24,12 +24,18 @@
 
 @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
 {
-    <div class="clearfix">
-        <div class="controls controls-row search-row">
-            <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search" />
-            <button id="searchStr" name="searchStr" class="btn btn-outline-primary" type="submit">
-                <i class="icon-search"></i>
-            </button>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="clearfix">
+                    <div class="controls controls-row search-row">
+                        <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search" />
+                        <button id="searchStr" name="searchStr" class="btn btn-outline-primary" type="submit">
+                            <i class="input-group-sm">Search</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }
@@ -66,11 +72,15 @@
     </div>
 </div>
 
-<div class="clearfix">
-    
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-    
-    
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }));
-    
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="clearfix">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+            </div>
+        </div>
+    </div>
 </div>
+    

@@ -6,6 +6,9 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using LConn1Blog.Models;
+using Owin.Security.Providers.LinkedIn;
+using System.Web.Configuration;
+using Owin.Security.Providers.GitHub;
 
 namespace LConn1Blog
 {
@@ -34,7 +37,7 @@ namespace LConn1Blog
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -50,19 +53,24 @@ namespace LConn1Blog
             //    clientId: "",
             //    clientSecret: "");
 
+            app.UseLinkedInAuthentication(
+                clientId: WebConfigurationManager.AppSettings["LinkedInId"],
+                clientSecret: WebConfigurationManager.AppSettings["LinkedInSecret"]);
+
             app.UseTwitterAuthentication(
-               consumerKey: "NN9KasWbWv6VDov0ZyHahopwK",
-               consumerSecret: "VnALUSIQTKhI2aOUXMB7AVTPAk2OUL7LAXRbmK9ewb7GS3XxSt");
+               consumerKey: WebConfigurationManager.AppSettings["TwitterKey"],
+               consumerSecret: WebConfigurationManager.AppSettings["TwitterSecret"]);
 
             app.UseFacebookAuthentication(
-               appId: "646711592477225",
-               appSecret: "04a8c279271c34a7c53c00c8748ebdc3");
+               appId: WebConfigurationManager.AppSettings["FacebookId"],
+               appSecret: WebConfigurationManager.AppSettings["FacebookSecret"]);
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "781143199294-bjh3qm96m7kf45pk6ijt7v4fq4sk9kac.apps.googleusercontent.com",
-                ClientSecret = "akBxM1GJ5YLhLhWZ9r7e3gtW"
+                ClientId = WebConfigurationManager.AppSettings["GoogleId"],
+                ClientSecret = WebConfigurationManager.AppSettings["GoogleSecret"]
             });
+
         }
     }
 }
