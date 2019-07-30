@@ -454,6 +454,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <None Include="Properties\PublishProfiles\RLConnBlog - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -591,12 +592,16 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Uploads\About-Me-Pages.jpg" />
     <Content Include="Uploads\Backdrop_one.jpg" />
     <Content Include="Uploads\Register2.jpg" />
+    <Content Include="Uploads\Shark Thief.jpg" />
     <Content Include="Uploads\Test pic 1.jpg" />
     <Content Include="Uploads\Test pic 2.png" />
     <Content Include="Uploads\Test pic 3.png" />
     <Content Include="Uploads\Test pic 4.jpg" />
+    <Content Include="Uploads\Test pic 5.jpg" />
+    <Content Include="Uploads\Test pic 6.jpg" />
     <Content Include="Uploads\tiger-shark.jpg" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
