@@ -438,8 +438,10 @@
     <Content Include="Images\About-Me-Pages.jpg" />
     <Content Include="Images\Blog-background.jpeg" />
     <Content Include="Images\contact-bg.jpg" />
+    <Content Include="Images\favicon %282%29.png" />
     <Content Include="Images\favicon.png" />
     <Content Include="Images\home-bg.jpg" />
+    <Content Include="Images\lee_bw3.jpg" />
     <Content Include="Images\Login1.jpg" />
     <Content Include="Images\Login2.png" />
     <Content Include="Images\post-bg.jpg" />
