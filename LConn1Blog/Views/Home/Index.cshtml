@@ -21,66 +21,66 @@
         </div>
     </div>
 </header>
-
-@using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
-{
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="clearfix">
-                    <div class="controls controls-row search-row">
-                        <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search" />
-                        <button id="searchStr" name="searchStr" class="btn btn-outline-primary" type="submit">
-                            <i class="input-group-sm">Search</i>
-                        </button>
+<body class="masthead">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="clearfix">
+                        <div class="controls controls-row search-row">
+                            <input id="searchStr" name="searchStr" class="input-block-level" type="text" placeholder="Search" />
+                            <button id="searchStr" name="searchStr" class="btn btn-outline-primary" type="submit">
+                                <i class="input-group-sm">Search</i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-            @foreach (var post in Model)
-            {
-                <div class="post-preview">
-                    <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })">
-                        <h2 class="post-title">
-                            @post.Title
-                        </h2>
-                        <h3 class="post-subtitle">
-                            @post.Abstract
-                        </h3>
-                    </a>
-                    <p class="post-meta">
-                        Posted by Lee Connelly on @post.Created.ToString("dddd, MMMM d, yyyy")
-                    </p>
-                </div>
-                <hr>
-            }
-
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @foreach (var post in Model)
+                {
+                    <div class="post-preview">
+                        <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })">
+                            <h2 class="post-title">
+                                @post.Title
+                            </h2>
+                            <h3 class="post-subtitle">
+                                @post.Abstract
+                            </h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by Lee Connelly on @post.Created.ToString("dddd, MMMM d, yyyy")
+                        </p>
+                    </div>
+                    <hr>
+                }
 
 
-            <!-- Pager -->
-            @*<div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-            </div>*@
-        </div>
-    </div>
-</div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="clearfix">
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+                <!-- Pager -->
+                @*<div class="clearfix">
+                        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+                    </div>*@
             </div>
         </div>
     </div>
-</div>
-    
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="clearfix">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -84,7 +84,7 @@ namespace LConn1Blog.Controllers
                     };
                     var svc = new PersonalEmail();
                     await svc.SendAsync(myEmail);
-                    return View(new EmailModel());
+                    return RedirectToAction("Index","Home");
                 }
                 catch (Exception ex)
                 {

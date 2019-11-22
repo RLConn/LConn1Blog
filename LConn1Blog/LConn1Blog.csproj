@@ -436,7 +436,14 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Images\about-bg.jpg" />
     <Content Include="Images\About-Me-Pages.jpg" />
+    <Content Include="Images\back1.jpg" />
+    <Content Include="Images\back2.jpg" />
+    <Content Include="Images\back3.jpg" />
+    <Content Include="Images\back4.jpg" />
+    <Content Include="Images\back5 %282%29.jpg" />
+    <Content Include="Images\back5.jpg" />
     <Content Include="Images\Blog-background.jpeg" />
+    <Content Include="Images\blogregister.jpg" />
     <Content Include="Images\contact-bg.jpg" />
     <Content Include="Images\favicon %282%29.png" />
     <Content Include="Images\favicon.png" />

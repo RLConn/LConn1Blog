@@ -39,6 +39,7 @@ namespace LConn1Blog.Controllers
         }
 
         // GET: Comments/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName");
@@ -68,6 +69,7 @@ namespace LConn1Blog.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,6 +89,7 @@ namespace LConn1Blog.Controllers
         // POST: Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,BlogPostId,AuthorId,CommentBody,Created,Updated,UpdateReason")] Comment comment)
@@ -112,6 +115,7 @@ namespace LConn1Blog.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize(Roles = "Admin, Moderator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,6 +131,7 @@ namespace LConn1Blog.Controllers
         }
 
         // POST: Comments/Delete/5
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

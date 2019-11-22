@@ -115,6 +115,11 @@ img::-moz-selection {
   text-transform: uppercase;
 }
 
+#subhead1 {
+    font-weight: 800;
+    background-color: #594141;
+}
+
 @media only screen and (min-width: 992px) {
   #mainNav {
     border-bottom: 1px solid transparent;

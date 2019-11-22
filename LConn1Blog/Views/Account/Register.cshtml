@@ -3,11 +3,15 @@
     <header class="masthead">
         <br />
         <br />
+        <h4>Create a new account.</h4>
+        <hr />
+    </header>
+
+    <body class="masthead" style="background-image: url('/Images/back4.jpg')">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-         {
+        {
             @Html.AntiForgeryToken()
-            <h4>Create a new account.</h4>
-            <hr />
+
             @Html.ValidationSummary("", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
@@ -50,6 +54,6 @@
                     <input type="submit" class="btn btn-outline-warning" value="Register" />
                 </div>
             </div>
-         }
+        }
 
-    </header>
+    </body>

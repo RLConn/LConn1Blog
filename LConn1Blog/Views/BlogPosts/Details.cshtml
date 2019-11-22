@@ -50,91 +50,92 @@ else
 </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                @Html.Raw(Model.Body)
+<body class="masthead" style="background-image: url('/Images/back3.jpg')">
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    @Html.Raw(Model.Body)
+                </div>
             </div>
         </div>
-    </div>
-</article>
+    </article>
 
-<hr />
+    <hr />
 
-<div class="row">
-    <div class="col-md-12 text-center Ccounter" h3>
-        COMMENTS: (@Model.Comments.Count() comments)
-    </div>
-</div>
-
-@if (!User.Identity.IsAuthenticated)
-{
     <div class="row">
-        <div class="col-md-12 text-center h3">
-            @Html.ActionLink("Please login to comment", "Login", "Account", null, new { id = "custLogin" })
+        <div class="col-md-12 text-center Ccounter" h3>
+            COMMENTS: (@Model.Comments.Count() comments)
         </div>
     </div>
-}
 
-@if (User.Identity.IsAuthenticated)
-{
-    using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+    @if (!User.Identity.IsAuthenticated)
     {
-        @Html.AntiForgeryToken()
-        @Html.Hidden("BlogPostId", Model.Id)
-        @Html.HiddenFor(model => model.Slug)
-        <section>
-            <div class="row">
-                <div class="offset-md-3 col-md-6">
-                    @Html.TextArea("CommentBody", new { placeholder = "Please Add Comments Here" })
-                </div>
+        <div class="row">
+            <div class="col-md-12 text-center h3">
+                @Html.ActionLink("Please login to comment", "Login", "Account", null, new { id = "custLogin" })
             </div>
-            <div class="row">
-                <div class="offset-md-3 col-md-6">
-                    <button type="submit" class="btn btn-success buttonW">Add Comment</button>
-                </div>
-            </div>
-        </section>
+        </div>
     }
-}
+</body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("BlogPostId", Model.Id)
+            @Html.HiddenFor(model => model.Slug)
+            <section>
+                <div class="row">
+                    <div class="offset-md-3 col-md-6">
+                        @Html.TextArea("CommentBody", new { placeholder = "Please Add Comments Here" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-md-3 col-md-6">
+                        <button type="submit" class="btn btn-success buttonW">Add Comment</button>
+                    </div>
+                </div>
+            </section>
+        }
+    }
 
-<br />
-@foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
-{
-    <div class="card bg-secondary text-white">
-        <div class="card-body">
-            <h4>@comment.Author.Email</h4><h5>@comment.Created.ToString("MM/dd/yy")</h5>
-            <p class="card-text">@comment.CommentBody</p>
+    <br />
+    @foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
+    {
+        <div class="card bg-secondary text-white">
+            <div class="card-body">
+                <h4>@comment.Author.Email</h4><h5>@comment.Created.ToString("MM/dd/yy")</h5>
+                <p class="card-text">@comment.CommentBody</p>
 
-            @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (comment.AuthorId == User.Identity.GetUserId() && comment.UpdateReason == null))
-            {
-                @Html.ActionLink("Edit", "Edit", "Comments", new { id = comment.Id }, new { @class = "btn btn-sm btn-danger" })
-            }
+                @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (comment.AuthorId == User.Identity.GetUserId() && comment.UpdateReason == null))
+                {
+                    @Html.ActionLink("Edit", "Edit", "Comments", new { id = comment.Id }, new { @class = "btn btn-sm btn-danger" })
+                }
+            </div>
         </div>
+        <br>
+    }
+
+
+
+    <div class="clearfix">
+        <a class="btn btn-primary float-md-right" href="@Url.Action("Index", "Home")">Back &larr;</a>
     </div>
-    <br>
-}
 
 
 
-<div class="clearfix">
-    <a class="btn btn-primary float-md-right" href="@Url.Action("Index", "Home")">Back &larr;</a>
-</div>
+    @*<div class="card">
+            <div class="card-body">
+                <h4 class="card-title">@comment.Author.Email</h4>
+                <h5>@comment.Created.ToString("MM/dd/yy")</h5>
+                <p class="card-text">@comment.CommentBody</p>
 
- 
+                @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (comment.AuthorId == User.Identity.GetUserId() && comment.UpdateReason == null))
+                {
+                    @Html.ActionLink("Edit","Edit","Comments",new { id = comment.Id },new { @class = "btn btn-sm btn-danger" })
+                }
 
-@*<div class="card">
-        <div class="card-body">
-            <h4 class="card-title">@comment.Author.Email</h4>
-            <h5>@comment.Created.ToString("MM/dd/yy")</h5>
-            <p class="card-text">@comment.CommentBody</p>
-
-            @if (User.IsInRole("Admin") || User.IsInRole("Moderator") || (comment.AuthorId == User.Identity.GetUserId() && comment.UpdateReason == null))
-            {
-                @Html.ActionLink("Edit","Edit","Comments",new { id = comment.Id },new { @class = "btn btn-sm btn-danger" })
-            }
-
-        </div>
-    </div>*@
+            </div>
+        </div>*@
